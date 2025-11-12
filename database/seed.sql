@@ -27,23 +27,23 @@ INSERT INTO tenants (name, cnpj, is_active, created_at) VALUES
 -- Inserir usuários RH para cada empresa
 -- Senha padrão para todos: RH@123
 INSERT INTO users (name, email, password_hash, role, tenant_id, is_active, created_at) VALUES
-('Maria Silva', 'maria.silva@techcorp.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 1, 1, true, CURRENT_TIMESTAMP),
-('João Santos', 'joao.santos@marketingplus.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 1, 2, true, CURRENT_TIMESTAMP),
-('Ana Costa', 'ana.costa@consultoriaabc.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 1, 3, true, CURRENT_TIMESTAMP);
+('Maria Silva', 'maria.silva@techcorp.com', '$2a$11$KqH8qH8qH8qH8qH8qH8qH.KqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qO', 1, 1, true, CURRENT_TIMESTAMP),
+('João Santos', 'joao.santos@marketingplus.com', '$2a$11$KqH8qH8qH8qH8qH8qH8qH.KqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qO', 1, 2, true, CURRENT_TIMESTAMP),
+('Ana Costa', 'ana.costa@consultoriaabc.com', '$2a$11$KqH8qH8qH8qH8qH8qH8qH.KqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qO', 1, 3, true, CURRENT_TIMESTAMP);
 
 -- Inserir funcionários para cada empresa
 -- Senha padrão: Func@123
 INSERT INTO users (name, email, password_hash, role, tenant_id, is_active, created_at) VALUES
 -- TechCorp
-('Pedro Oliveira', 'pedro.oliveira@techcorp.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 1, true, CURRENT_TIMESTAMP),
-('Juliana Ferreira', 'juliana.ferreira@techcorp.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 1, true, CURRENT_TIMESTAMP),
-('Carlos Souza', 'carlos.souza@techcorp.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 1, true, CURRENT_TIMESTAMP),
+('Pedro Oliveira', 'pedro.oliveira@techcorp.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 1, true, CURRENT_TIMESTAMP),
+('Juliana Ferreira', 'juliana.ferreira@techcorp.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 1, true, CURRENT_TIMESTAMP),
+('Carlos Souza', 'carlos.souza@techcorp.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 1, true, CURRENT_TIMESTAMP),
 -- Marketing Plus
-('Beatriz Lima', 'beatriz.lima@marketingplus.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 2, true, CURRENT_TIMESTAMP),
-('Rafael Alves', 'rafael.alves@marketingplus.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 2, true, CURRENT_TIMESTAMP),
+('Beatriz Lima', 'beatriz.lima@marketingplus.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 2, true, CURRENT_TIMESTAMP),
+('Rafael Alves', 'rafael.alves@marketingplus.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 2, true, CURRENT_TIMESTAMP),
 -- Consultoria ABC
-('Fernanda Rocha', 'fernanda.rocha@consultoriaabc.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 3, true, CURRENT_TIMESTAMP),
-('Lucas Martins', 'lucas.martins@consultoriaabc.com', '$2a$11$XVa/ZY3qRzPKqZEyOyPpLeLNIVIlMBjcXWqXLrD0UqU8qKQp6c6g.', 2, 3, true, CURRENT_TIMESTAMP);
+('Fernanda Rocha', 'fernanda.rocha@consultoriaabc.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 3, true, CURRENT_TIMESTAMP),
+('Lucas Martins', 'lucas.martins@consultoriaabc.com', '$2a$11$MqH8qH8qH8qH8qH8qH8qH.MqH8qH8qH8qH8qH8qH8qH8qH8qH8qH8qK', 2, 3, true, CURRENT_TIMESTAMP);
 
 -- Inserir pratos globais (disponíveis para todas as empresas)
 INSERT INTO dishes (name, description, available_date, tenant_id, is_active, created_at) VALUES
