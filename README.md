@@ -54,15 +54,21 @@ Sistema SaaS para gestão de pedidos de almoço em empresas, com suporte multi-t
 ### 1. Configurar Banco de Dados (Supabase)
 
 1. Criar um projeto no [Supabase](https://supabase.com)
-2. Executar o script de schema:
-```bash
-# Copiar conteúdo de database/schema.sql e executar no SQL Editor do Supabase
-```
 
-3. (Opcional) Executar dados de teste:
-```bash
-# Copiar conteúdo de database/seed.sql e executar no SQL Editor do Supabase
-```
+2. Acessar o SQL Editor no painel do Supabase
+
+3. Executar o script de schema:
+   - Abra o arquivo `database/schema.sql`
+   - Copie todo o conteúdo
+   - Cole e execute no SQL Editor do Supabase
+
+4. (Opcional mas recomendado) Executar dados de teste:
+   - Abra o arquivo `database/seed.sql`
+   - Copie todo o conteúdo
+   - Cole e execute no SQL Editor do Supabase
+   - Isso criará um Super Admin e dados de exemplo para testar
+
+⚠️ **IMPORTANTE:** O banco de dados é gerenciado via scripts SQL, não via migrations do Entity Framework. O EF Core é usado apenas como ORM no código.
 
 ### 2. Configurar Backend (ASP.NET Core)
 
@@ -77,10 +83,13 @@ dotnet restore
 ```
 
 3. Configurar connection string no `appsettings.json`:
+
+Obtenha sua connection string no Supabase (Settings > Database > Connection String) e configure:
+
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Host=db.xxxxx.supabase.co;Database=postgres;Username=postgres;Password=sua_senha_aqui"
+    "DefaultConnection": "Host=db.xxxxx.supabase.co;Database=postgres;Username=postgres;Password=sua_senha_aqui;Port=5432;SSL Mode=Require;Trust Server Certificate=true"
   },
   "Jwt": {
     "SecretKey": "sua_chave_secreta_jwt_aqui_minimo_32_caracteres",
@@ -91,12 +100,9 @@ dotnet restore
 }
 ```
 
-4. Executar migrations:
-```bash
-dotnet ef database update
-```
+⚠️ **IMPORTANTE:** Substitua `xxxxx` pelo ID do seu projeto Supabase e `sua_senha_aqui` pela senha do banco.
 
-5. Rodar o backend:
+4. Rodar o backend:
 ```bash
 dotnet run
 ```

@@ -1,6 +1,6 @@
 import { createContext, useState, useContext, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { login as loginApi, logout as logoutApi } from '../services/api'
+import { login as loginApi } from '../services/api'
 
 const AuthContext = createContext({})
 

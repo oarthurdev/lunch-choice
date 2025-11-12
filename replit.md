@@ -80,9 +80,11 @@ Sistema SaaS para gestão de pedidos de almoço corporativo com arquitetura mult
 ### Backend (Local)
 O backend C# deve ser executado localmente. Instruções no README.md:
 1. Instalar .NET 8.0 SDK
-2. Configurar connection string do Supabase em `appsettings.json`
-3. Executar migrations
+2. Executar scripts SQL no Supabase (schema.sql e seed.sql)
+3. Configurar connection string do Supabase em `appsettings.json`
 4. Rodar `dotnet run`
+
+**Nota:** O banco é gerenciado via scripts SQL, não migrations do EF Core.
 
 ### Frontend (Replit)
 O frontend React será executado no Replit:
@@ -97,14 +99,18 @@ Supabase PostgreSQL com schema multi-tenant:
 
 ## Mudanças Recentes
 - **12/11/2025:** Estrutura inicial do projeto criada
-- **12/11/2025:** Configuração de backend ASP.NET Core multi-tenant
-- **12/11/2025:** Configuração de frontend React + Vite + TailwindCSS
+- **12/11/2025:** Backend ASP.NET Core completo (controllers, services, DTOs, middleware)
+- **12/11/2025:** Frontend React + Vite + TailwindCSS completo
+- **12/11/2025:** Scripts SQL (schema e seed) criados
+- **12/11/2025:** Workflow configurado e frontend rodando sem erros
+- **12/11/2025:** Documentação atualizada com instruções corretas
 
-## Próximos Passos
-- [ ] Configurar Supabase e executar migrations
-- [ ] Testar autenticação JWT
-- [ ] Validar cron job de geração de PDFs
-- [ ] Testes de integração entre frontend e backend
+## Próximos Passos para o Usuário
+- [ ] Criar projeto no Supabase
+- [ ] Executar scripts SQL (schema.sql e seed.sql) no Supabase
+- [ ] Configurar backend localmente e executar
+- [ ] Testar autenticação e funcionalidades
+- [ ] Validar geração automática de PDFs (Hangfire)
 
 ## Observações Técnicas
 - CORS configurado para desenvolvimento local
