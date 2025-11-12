@@ -14,41 +14,35 @@ import SuperAdminTenants from './pages/SuperAdmin/Tenants'
 import SuperAdminDishes from './pages/SuperAdmin/Dishes'
 import SuperAdminReports from './pages/SuperAdmin/Reports'
 
-function AppRoutes() {
-  return (
-    <AuthProvider>
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/esqueci-senha" element={<ForgotPassword />} />
-        <Route path="/redefinir-senha/:token" element={<ResetPassword />} />
-
-        <Route path="/funcionario" element={<PrivateRoute allowedRoles={['Employee']} />}>
-          <Route index element={<EmployeeDashboard />} />
-        </Route>
-
-        <Route path="/rh" element={<PrivateRoute allowedRoles={['HR']} />}>
-          <Route index element={<RHDashboard />} />
-          <Route path="funcionarios" element={<RHEmployees />} />
-          <Route path="pedidos" element={<RHOrders />} />
-        </Route>
-
-        <Route path="/super-admin" element={<PrivateRoute allowedRoles={['SuperAdmin']} />}>
-          <Route index element={<SuperAdminDashboard />} />
-          <Route path="empresas" element={<SuperAdminTenants />} />
-          <Route path="pratos" element={<SuperAdminDishes />} />
-          <Route path="relatorios" element={<SuperAdminReports />} />
-        </Route>
-
-        <Route path="/" element={<Navigate to="/login" replace />} />
-      </Routes>
-    </AuthProvider>
-  )
-}
-
 function App() {
   return (
     <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-      <AppRoutes />
+      <AuthProvider>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/esqueci-senha" element={<ForgotPassword />} />
+          <Route path="/redefinir-senha/:token" element={<ResetPassword />} />
+
+          <Route path="/funcionario" element={<PrivateRoute allowedRoles={['Employee']} />}>
+            <Route index element={<EmployeeDashboard />} />
+          </Route>
+
+          <Route path="/rh" element={<PrivateRoute allowedRoles={['HR']} />}>
+            <Route index element={<RHDashboard />} />
+            <Route path="funcionarios" element={<RHEmployees />} />
+            <Route path="pedidos" element={<RHOrders />} />
+          </Route>
+
+          <Route path="/super-admin" element={<PrivateRoute allowedRoles={['SuperAdmin']} />}>
+            <Route index element={<SuperAdminDashboard />} />
+            <Route path="empresas" element={<SuperAdminTenants />} />
+            <Route path="pratos" element={<SuperAdminDishes />} />
+            <Route path="relatorios" element={<SuperAdminReports />} />
+          </Route>
+
+          <Route path="/" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </AuthProvider>
     </Router>
   )
 }

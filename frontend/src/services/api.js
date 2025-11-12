@@ -46,11 +46,6 @@ export const resetPassword = async (token, newPassword) => {
   return api.post('/auth/reset-password', { token, newPassword })
 }
 
-export const logout = () => {
-  localStorage.removeItem('token')
-  localStorage.removeItem('user')
-}
-
 export const getTenants = async () => {
   const response = await api.get('/tenants')
   return response.data
