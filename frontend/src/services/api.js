@@ -43,8 +43,12 @@ export const forgotPassword = async (email) => {
 }
 
 export const resetPassword = async (token, newPassword) => {
-  const response = await api.post('/auth/reset-password', { token, newPassword })
-  return response.data
+  return api.post('/auth/reset-password', { token, newPassword })
+}
+
+export const logout = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('user')
 }
 
 export const getTenants = async () => {

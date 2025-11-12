@@ -21,24 +21,24 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/esqueci-senha" element={<ForgotPassword />} />
           <Route path="/redefinir-senha" element={<ResetPassword />} />
-          
+
           <Route path="/super-admin" element={<PrivateRoute allowedRoles={['SuperAdmin']} />}>
             <Route index element={<SuperAdminDashboard />} />
             <Route path="empresas" element={<SuperAdminTenants />} />
             <Route path="pratos" element={<SuperAdminDishes />} />
             <Route path="relatorios" element={<SuperAdminReports />} />
           </Route>
-          
+
           <Route path="/rh" element={<PrivateRoute allowedRoles={['HR']} />}>
             <Route index element={<RHDashboard />} />
             <Route path="funcionarios" element={<RHEmployees />} />
             <Route path="pedidos" element={<RHOrders />} />
           </Route>
-          
+
           <Route path="/funcionario" element={<PrivateRoute allowedRoles={['Employee']} />}>
             <Route index element={<EmployeeDashboard />} />
           </Route>
-          
+
           <Route path="/" element={<Navigate to="/login" replace />} />
         </Routes>
       </AuthProvider>

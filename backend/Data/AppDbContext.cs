@@ -1,3 +1,4 @@
+
 using Microsoft.EntityFrameworkCore;
 using LunchSystem.Models;
 
@@ -20,18 +21,32 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Tenant>(entity =>
         {
+            entity.ToTable("tenants");
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.CNPJ).IsRequired().HasMaxLength(18);
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasColumnName("name").IsRequired().HasMaxLength(200);
+            entity.Property(e => e.CNPJ).HasColumnName("cnpj").IsRequired().HasMaxLength(18);
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.HasIndex(e => e.CNPJ).IsUnique();
         });
 
         modelBuilder.Entity<User>(entity =>
         {
+            entity.ToTable("users");
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.Email).IsRequired().HasMaxLength(255);
-            entity.Property(e => e.PasswordHash).IsRequired();
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasColumnName("name").IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Email).HasColumnName("email").IsRequired().HasMaxLength(255);
+            entity.Property(e => e.PasswordHash).HasColumnName("password_hash").IsRequired();
+            entity.Property(e => e.Role).HasColumnName("role");
+            entity.Property(e => e.TenantId).HasColumnName("tenant_id");
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.PasswordResetToken).HasColumnName("password_reset_token");
+            entity.Property(e => e.PasswordResetTokenExpiry).HasColumnName("password_reset_token_expiry");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             entity.HasIndex(e => e.Email).IsUnique();
             
             entity.HasOne(e => e.Tenant)
@@ -42,9 +57,16 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Dish>(entity =>
         {
+            entity.ToTable("dishes");
             entity.HasKey(e => e.Id);
-            entity.Property(e => e.Name).IsRequired().HasMaxLength(200);
-            entity.Property(e => e.Description).HasMaxLength(1000);
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Name).HasColumnName("name").IsRequired().HasMaxLength(200);
+            entity.Property(e => e.Description).HasColumnName("description").HasMaxLength(1000);
+            entity.Property(e => e.AvailableDate).HasColumnName("available_date");
+            entity.Property(e => e.TenantId).HasColumnName("tenant_id");
+            entity.Property(e => e.IsActive).HasColumnName("is_active");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
             
             entity.HasOne(e => e.Tenant)
                 .WithMany(t => t.Dishes)
@@ -54,7 +76,14 @@ public class AppDbContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
+            entity.ToTable("orders");
             entity.HasKey(e => e.Id);
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("user_id");
+            entity.Property(e => e.DishId).HasColumnName("dish_id");
+            entity.Property(e => e.TenantId).HasColumnName("tenant_id");
+            entity.Property(e => e.OrderDate).HasColumnName("order_date");
+            entity.Property(e => e.CreatedAt).HasColumnName("created_at");
             
             entity.HasOne(e => e.User)
                 .WithMany(u => u.Orders)
