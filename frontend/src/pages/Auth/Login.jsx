@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
 
 const Login = () => {
@@ -8,6 +8,7 @@ const Login = () => {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -15,15 +16,16 @@ const Login = () => {
     setLoading(true)
 
     const result = await login(email, password)
-    
+
+    console.log(result)
     if (result.success) {
-      // Navigate based on role
-      if (result.role === 'SuperAdmin') {
-        window.location.href = '/super-admin'
-      } else if (result.role === 'HR') {
-        window.location.href = '/rh'
-      } else if (result.role === 'Employee') {
-        window.location.href = '/funcionario'
+      // Navegação baseada no papel
+      if (result.role === 0) {
+        navigate('/super-admin')
+      } else if (result.role === 1) {
+        navigate('/rh')
+      } else if (result.role === 2) {
+        navigate('/funcionario')
       }
     } else {
       setError(result.error)
