@@ -1,0 +1,98 @@
+
+# 🎯 Projeto: Sistema Multi-Tenant de Escolha de Almoço Corporativo
+
+## 🧩 Descrição
+Sistema SaaS (multi-tenant) para gestão de pedidos de almoço corporativos. Empresas utilizam o sistema com seus próprios usuários e cardápios diários. A empresa proprietária (super admin) gerencia o sistema, cria empresas, cadastra pratos do dia e tem acesso a relatórios mensais globais.
+
+---
+
+## 💻 Plataforma-Alvo
+- **Web**
+
+## 🌐 Ambiente de Execução
+- **Online**
+
+---
+
+## ⚙️ Stack Tecnológica
+
+### Frontend
+- React + Vite  
+- TailwindCSS (estilo moderno e responsivo)
+
+### Backend
+- C# (ASP.NET Core API)
+
+### Banco
+- Supabase (PostgreSQL com suporte multi-tenant via `tenant_id`)
+
+---
+
+## 👤 Perfis e Permissões
+
+### 🔑 Proprietária do Sistema (Super Admin)
+- Acesso total a tudo
+- Cadastra empresas (tenants)
+- Cadastra pratos do dia (globais ou por empresa)
+- Gera relatórios mensais (gerais e por empresa)
+- Gerencia usuários RH de cada empresa
+
+### 👥 RH da Empresa
+- Login próprio por empresa
+- Cadastra funcionários
+- Visualiza pedidos e relatórios da **sua empresa**
+- Sem acesso a outros tenants
+
+### 🧑 Funcionário
+- Login + esqueci minha senha
+- Escolhe 1 prato do dia (até 10h)
+- Sem opção de auto-registro
+- Caso tente após 10h => Mensagem: **"Passou do horário de solicitação do almoço!"**
+
+---
+
+## 📆 Funcionalidades-Chave
+
+### Relatórios
+- **10h diariamente**: Gera PDF com todos os pedidos daquele dia por empresa
+- **Mensal (Super Admin)**: PDF com todos os pedidos de todas as empresas agrupados
+
+### Cardápio do Dia
+- Cadastrado pela **Proprietária do Sistema**
+- Pode ser único ou segmentado por empresa
+
+---
+
+## 🔐 Autenticação
+- Login por e-mail/senha
+- Esqueci minha senha
+- Sem auto-registro
+- Toda criação de conta vem do RH ou da Proprietária
+
+---
+
+## 🧾 Outputs
+- Tela de login
+- Painel da proprietária com:
+  - Cadastro de empresas
+  - Cadastro de pratos
+  - Relatórios mensais
+- Painel do RH com:
+  - Cadastro de funcionários
+  - Relatório do dia (PDF)
+- Tela do funcionário com:
+  - Visualização do prato
+  - Escolha do prato (limitada até 10h)
+  - Mensagem se fora do horário
+
+---
+
+## 💅 Interface
+- Minimalista, com estética profissional e clara
+- Navegação intuitiva por níveis de permissão
+
+---
+
+## 🌐 Idiomas
+- **Replit Agent**: Português
+- **Interface da Aplicação**: Português (Brasil)
