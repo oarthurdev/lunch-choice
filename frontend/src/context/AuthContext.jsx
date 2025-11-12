@@ -1,5 +1,5 @@
+
 import { createContext, useState, useContext, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { login as loginApi } from '../services/api'
 
 const AuthContext = createContext({})
@@ -7,7 +7,6 @@ const AuthContext = createContext({})
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [loading, setLoading] = useState(true)
-  const navigate = useNavigate()
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user')
@@ -28,15 +27,8 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem('user', JSON.stringify(userData))
       setUser(userData)
       
-      if (userData.role === 'SuperAdmin') {
-        navigate('/super-admin')
-      } else if (userData.role === 'HR') {
-        navigate('/rh')
-      } else if (userData.role === 'Employee') {
-        navigate('/funcionario')
-      }
-      
-      return { success: true }
+      // Return role so the component can handle navigation
+      return { success: true, role: userData.role }
     } catch (error) {
       return { success: false, error: error.response?.data?.message || 'Erro ao fazer login' }
     }
@@ -46,7 +38,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('token')
     localStorage.removeItem('user')
     setUser(null)
-    navigate('/login')
+    // Let the component handle navigation
+    return true
   }
 
   const value = {

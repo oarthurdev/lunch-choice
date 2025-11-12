@@ -16,7 +16,16 @@ const Login = () => {
 
     const result = await login(email, password)
     
-    if (!result.success) {
+    if (result.success) {
+      // Navigate based on role
+      if (result.role === 'SuperAdmin') {
+        window.location.href = '/super-admin'
+      } else if (result.role === 'HR') {
+        window.location.href = '/rh'
+      } else if (result.role === 'Employee') {
+        window.location.href = '/funcionario'
+      }
+    } else {
       setError(result.error)
       setLoading(false)
     }
