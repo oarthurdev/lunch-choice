@@ -98,4 +98,4 @@ RecurringJob.AddOrUpdate<IReportService>(
 
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }));
 
-app.Run();
+app.Run("http://0.0.0.0:5000");
