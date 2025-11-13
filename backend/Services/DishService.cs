@@ -27,6 +27,8 @@ public class DishService : IDishService
                 Id = d.Id,
                 Name = d.Name,
                 Description = d.Description,
+                Category = d.Category,
+                ImageUrl = d.ImageUrl,
                 AvailableDate = d.AvailableDate,
                 TenantId = d.TenantId,
                 TenantName = d.Tenant != null ? d.Tenant.Name : "Global",
@@ -51,6 +53,8 @@ public class DishService : IDishService
                 Id = d.Id,
                 Name = d.Name,
                 Description = d.Description,
+                Category = d.Category,
+                ImageUrl = d.ImageUrl,
                 AvailableDate = d.AvailableDate,
                 TenantId = d.TenantId,
                 TenantName = d.Tenant != null ? d.Tenant.Name : "Global",
@@ -71,6 +75,8 @@ public class DishService : IDishService
             Id = dish.Id,
             Name = dish.Name,
             Description = dish.Description,
+            Category = dish.Category,
+            ImageUrl = dish.ImageUrl,
             AvailableDate = dish.AvailableDate,
             TenantId = dish.TenantId,
             TenantName = dish.Tenant?.Name ?? "Global",
@@ -85,6 +91,8 @@ public class DishService : IDishService
         {
             Name = request.Name,
             Description = request.Description,
+            Category = request.Category,
+            ImageUrl = request.ImageUrl,
             AvailableDate = request.AvailableDate,
             TenantId = request.TenantId,
             IsActive = true,
@@ -103,6 +111,8 @@ public class DishService : IDishService
             Id = dish.Id,
             Name = dish.Name,
             Description = dish.Description,
+            Category = dish.Category,
+            ImageUrl = dish.ImageUrl,
             AvailableDate = dish.AvailableDate,
             TenantId = dish.TenantId,
             TenantName = tenant?.Name ?? "Global",
@@ -119,6 +129,8 @@ public class DishService : IDishService
 
         dish.Name = request.Name;
         dish.Description = request.Description;
+        dish.Category = request.Category;
+        dish.ImageUrl = request.ImageUrl;
         dish.AvailableDate = request.AvailableDate;
         dish.IsActive = request.IsActive;
         dish.UpdatedAt = DateTime.UtcNow;
@@ -130,6 +142,8 @@ public class DishService : IDishService
             Id = dish.Id,
             Name = dish.Name,
             Description = dish.Description,
+            Category = dish.Category,
+            ImageUrl = dish.ImageUrl,
             AvailableDate = dish.AvailableDate,
             TenantId = dish.TenantId,
             TenantName = dish.Tenant?.Name ?? "Global",

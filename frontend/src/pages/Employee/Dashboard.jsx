@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import Layout from '../../components/Layout'
+import DishCard from '../../components/DishCard'
 import { getDishesToday, getMyOrder, canOrder, createOrder } from '../../services/api'
 
 const EmployeeDashboard = () => {
@@ -7,6 +8,9 @@ const EmployeeDashboard = () => {
   const [myOrder, setMyOrder] = useState(null)
   const [canMakeOrder, setCanMakeOrder] = useState(true)
   const [message, setMessage] = useState('')
+  const [selectedDish, setSelectedDish] = useState(null)
+
+  const categories = ['Carnes', 'Acompanhamentos', 'Saladas', 'Bebidas']
 
   const navItems = [
     { path: '/funcionario', label: 'Meu Pedido' },
@@ -37,20 +41,31 @@ const EmployeeDashboard = () => {
     }
   }
 
-  const handleOrder = async (dishId) => {
+  const handleOrder = async () => {
     if (!canMakeOrder) {
       alert('Passou do horário de solicitação do almoço!')
       return
     }
 
+    if (!selectedDish) {
+      alert('Por favor, selecione um prato!')
+      return
+    }
+
     try {
-      await createOrder(dishId)
+      await createOrder(selectedDish)
       loadData()
+      setSelectedDish(null)
       alert('Pedido realizado com sucesso!')
     } catch (error) {
       alert('Erro ao fazer pedido. Você pode já ter feito um pedido hoje.')
     }
   }
+
+  const dishesByCategory = categories.reduce((acc, category) => {
+    acc[category] = dishes.filter(dish => dish.category === category)
+    return acc
+  }, {})
 
   return (
     <Layout navItems={navItems}>
@@ -74,32 +89,53 @@ const EmployeeDashboard = () => {
           <>
             {canMakeOrder && (
               <div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-3 rounded mb-6">
-                <p>Você ainda não fez seu pedido de hoje. Escolha um prato abaixo!</p>
+                <p>Você ainda não fez seu pedido de hoje. Escolha um item de cada categoria abaixo!</p>
               </div>
             )}
 
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-              {dishes.map((dish) => (
-                <div key={dish.id} className="bg-white overflow-hidden shadow rounded-lg">
-                  <div className="p-5">
-                    <h3 className="text-lg font-medium text-gray-900">{dish.name}</h3>
-                    <p className="mt-2 text-sm text-gray-500">{dish.description}</p>
-                    {canMakeOrder && (
-                      <button
-                        onClick={() => handleOrder(dish.id)}
-                        className="mt-4 w-full bg-primary-600 hover:bg-primary-700 text-white px-4 py-2 rounded-md"
-                      >
-                        Escolher este prato
-                      </button>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {dishes.length === 0 && (
+            {dishes.length === 0 ? (
               <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
                 <p>Nenhum prato disponível para hoje.</p>
+              </div>
+            ) : (
+              <div className="space-y-8">
+                {categories.map((category) => {
+                  const categoryDishes = dishesByCategory[category]
+                  if (categoryDishes.length === 0) return null
+
+                  return (
+                    <div key={category}>
+                      <h2 className="text-2xl font-bold text-gray-900 mb-4">{category}</h2>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                        {categoryDishes.map((dish) => (
+                          <DishCard
+                            key={dish.id}
+                            dish={dish}
+                            isSelected={selectedDish === dish.id}
+                            onSelect={setSelectedDish}
+                            disabled={!canMakeOrder}
+                          />
+                        ))}
+                      </div>
+                    </div>
+                  )
+                })}
+
+                {canMakeOrder && (
+                  <div className="flex justify-center mt-8">
+                    <button
+                      onClick={handleOrder}
+                      disabled={!selectedDish}
+                      className={`px-8 py-3 rounded-lg text-white font-semibold text-lg ${
+                        selectedDish
+                          ? 'bg-green-600 hover:bg-green-700'
+                          : 'bg-gray-400 cursor-not-allowed'
+                      }`}
+                    >
+                      Confirmar Pedido
+                    </button>
+                  </div>
+                )}
               </div>
             )}
           </>

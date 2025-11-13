@@ -6,7 +6,16 @@ const SuperAdminDishes = () => {
   const [dishes, setDishes] = useState([])
   const [tenants, setTenants] = useState([])
   const [showModal, setShowModal] = useState(false)
-  const [formData, setFormData] = useState({ name: '', description: '', availableDate: '', tenantId: '' })
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    description: '', 
+    category: 'Carnes',
+    imageUrl: '',
+    availableDate: '', 
+    tenantId: '' 
+  })
+
+  const categories = ['Carnes', 'Acompanhamentos', 'Saladas', 'Bebidas']
 
   const navItems = [
     { path: '/super-admin', label: 'Dashboard' },
@@ -40,7 +49,7 @@ const SuperAdminDishes = () => {
       await createDish(data)
       loadData()
       setShowModal(false)
-      setFormData({ name: '', description: '', availableDate: '', tenantId: '' })
+      setFormData({ name: '', description: '', category: 'Carnes', imageUrl: '', availableDate: '', tenantId: '' })
     } catch (error) {
       alert('Erro ao salvar prato')
     }
@@ -62,13 +71,27 @@ const SuperAdminDishes = () => {
         <div className="bg-white shadow overflow-hidden sm:rounded-md">
           <ul className="divide-y divide-gray-200">
             {dishes.map((dish) => (
-              <li key={dish.id} className="px-4 py-4 sm:px-6">
-                <h3 className="text-lg font-medium text-gray-900">{dish.name}</h3>
-                <p className="text-sm text-gray-600">{dish.description}</p>
-                <p className="text-sm text-gray-500 mt-1">
-                  Data: {new Date(dish.availableDate).toLocaleDateString('pt-BR')} | 
-                  {dish.tenantName === 'Global' ? ' Disponível para todas empresas' : ` ${dish.tenantName}`}
-                </p>
+              <li key={dish.id} className="px-4 py-4 sm:px-6 flex gap-4">
+                {dish.imageUrl && (
+                  <img 
+                    src={dish.imageUrl} 
+                    alt={dish.name} 
+                    className="w-20 h-20 object-cover rounded-lg"
+                  />
+                )}
+                <div className="flex-1">
+                  <div className="flex items-center gap-2">
+                    <h3 className="text-lg font-medium text-gray-900">{dish.name}</h3>
+                    <span className="px-2 py-1 text-xs font-semibold rounded-full bg-blue-100 text-blue-800">
+                      {dish.category}
+                    </span>
+                  </div>
+                  <p className="text-sm text-gray-600">{dish.description}</p>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Data: {new Date(dish.availableDate).toLocaleDateString('pt-BR')} | 
+                    {dish.tenantName === 'Global' ? ' Disponível para todas empresas' : ` ${dish.tenantName}`}
+                  </p>
+                </div>
               </li>
             ))}
           </ul>
@@ -97,6 +120,29 @@ const SuperAdminDishes = () => {
                       required
                       value={formData.description}
                       onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                      className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium">Categoria</label>
+                    <select
+                      required
+                      value={formData.category}
+                      onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                      className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3"
+                    >
+                      {categories.map((cat) => (
+                        <option key={cat} value={cat}>{cat}</option>
+                      ))}
+                    </select>
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium">URL da Imagem (opcional)</label>
+                    <input
+                      type="url"
+                      value={formData.imageUrl}
+                      onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+                      placeholder="https://exemplo.com/imagem.jpg"
                       className="mt-1 block w-full border border-gray-300 rounded-md py-2 px-3"
                     />
                   </div>
