@@ -2,12 +2,14 @@ const DishCard = ({ dish, isSelected, onSelect, disabled = false }) => {
   return (
     <div
       onClick={() => !disabled && onSelect(dish.id)}
-      className={`relative bg-white border-2 border-black rounded-3xl p-4 cursor-pointer transition-all ${
-        isSelected ? 'ring-4 ring-blue-500' : ''
-      } ${disabled ? 'opacity-50 cursor-not-allowed' : 'hover:shadow-lg'}`}
+      className={`relative bg-white border-4 rounded-3xl p-3 transition-all duration-300 ${
+        isSelected 
+          ? 'border-blue-500 shadow-xl ring-4 ring-blue-300 scale-105' 
+          : 'border-gray-800 shadow-md'
+      } ${disabled ? 'opacity-60 cursor-not-allowed' : 'cursor-pointer hover:shadow-xl hover:scale-105'}`}
     >
       <div className="flex flex-col items-center">
-        <div className="w-full h-32 mb-3 rounded-2xl overflow-hidden bg-gray-100 flex items-center justify-center">
+        <div className="w-full aspect-square mb-3 rounded-2xl overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center border-2 border-gray-200">
           {dish.imageUrl ? (
             <img
               src={dish.imageUrl}
@@ -16,26 +18,32 @@ const DishCard = ({ dish, isSelected, onSelect, disabled = false }) => {
             />
           ) : (
             <div className="flex flex-col items-center justify-center h-full text-center px-2">
-              <span className="text-lg font-semibold text-gray-700">{dish.name}</span>
-              {dish.description && (
-                <span className="text-xs text-gray-500 mt-1">{dish.description}</span>
-              )}
+              <svg className="w-12 h-12 text-gray-300 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+              </svg>
+              <span className="text-sm font-bold text-gray-700 leading-tight">{dish.name}</span>
             </div>
           )}
         </div>
 
         {dish.imageUrl && (
-          <div className="text-center mb-3 w-full">
-            <p className="text-sm font-semibold text-gray-800">{dish.name}</p>
+          <div className="text-center mb-3 w-full px-1">
+            <p className="text-sm font-bold text-gray-800 leading-tight line-clamp-2">{dish.name}</p>
           </div>
         )}
 
         <div
-          className={`w-6 h-6 rounded-full border-2 border-black flex items-center justify-center ${
-            isSelected ? 'bg-black' : 'bg-white'
+          className={`w-7 h-7 rounded-full border-[3px] flex items-center justify-center transition-all ${
+            isSelected 
+              ? 'bg-blue-500 border-blue-600 shadow-lg' 
+              : 'bg-white border-gray-800'
           }`}
         >
-          {isSelected && <div className="w-3 h-3 rounded-full bg-white"></div>}
+          {isSelected && (
+            <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+            </svg>
+          )}
         </div>
       </div>
     </div>
